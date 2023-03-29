@@ -1,5 +1,4 @@
 // Variablen
-
 let sketchWidth = blockSize * 16; //720 Pixel
 let sketchHeight = blockSize * 10; //450 Pixel
 

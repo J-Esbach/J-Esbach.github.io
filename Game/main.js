@@ -1,4 +1,5 @@
 // Variablen
+
 let sketchWidth = blockSize * 16; //720 Pixel
 let sketchHeight = blockSize * 10; //450 Pixel
 
@@ -80,6 +81,7 @@ function draw() {
   spieler.show();
   kollisionen.handleCollision(spieler, definitionLevel1);
 
+  /* für so viele Gegner wie man möchte*/
   for (let e = enemy.length - 1; e > -1; e -= 1) {
     //enemy[e].falling();
     enemy[e].moving();

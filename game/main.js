@@ -35,9 +35,9 @@ let pressedKeys = {};
 
 //-----------------------------------------------
 function preload() {
-  spielerImg = loadImage('Aneye.png');
-  tileSheet = loadImage('Tilesheet.png');
-  enemyImg = loadImage('Gegner.png');
+  spielerImg = loadImage('game/Aneye.png');
+  tileSheet = loadImage('game/Tilesheet.png');
+  enemyImg = loadImage('game/Gegner.png');
 }
 
 function setup() {

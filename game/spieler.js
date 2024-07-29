@@ -4,15 +4,15 @@ class Spieler {
       x: 2.2 * blockSize,
       y: 2 * blockSize,
     }
-    this.width = 13; //15
-    this.height = 20;//25
+    this.width = 16;
+    this.height = 22;
     this.sides = {
       top: this.position.y - this.height,
       bottom: this.position.y + this.height,
       left: this.position.x - this.width,
       right: this.position.x + this.width,
     }   
-    this.playerLook = 'lightgreen';
+    this.playerLook = '#c9eb7b';
     this.speed = 3;
     this.jumpPover = 130;
     this.fallingSpeed = 0;
@@ -20,20 +20,29 @@ class Spieler {
     this.jump == false;
     this.Xold = this.position.x;
     this.Yold = this.position.y;
+    this.direction = 1;
   }
 
-  /*
-  update() {
-    show();
-    falling();
-    move();
-
-  }*/
-
   show() {
-    fill(this.playerLook);
-    rectMode(RADIUS);
-    rect(this.position.x, this.position.y, this.width, this.height);
+    if (!spielerImg){
+      fill(this.playerLook);
+      rectMode(RADIUS);
+      rect(this.position.x, this.position.y, this.width, this.height);
+    } else {
+    
+      if (this.direction === 1) { //Schaut nach rechts
+        imageMode(CENTER);
+        image(spielerImg, this.position.x -2 , this.position.y, 41 * 0.9, 52 * 0.9);
+      } else if (this.direction === -1){  //Schaut nach links
+        push();
+        translate(this.position.x + 2, this.position.y);
+        scale(-1, 1);
+        imageMode(CENTER);
+        image(spielerImg, 0, 0, 41 * 0.9, 52 * 0.9);
+        pop();  
+      }
+    }
+    
   }
 
   falling() {
@@ -42,8 +51,7 @@ class Spieler {
     this.position.y += this.fallingSpeed;
     this.sides.bottom = this.position.y + this.height;
 
-    //if (this.sides.bottom + this.fallingSpeed < sketchHeight) {
-    if ((kollisionen.collideBottom) || (kollisionen.oCharakter = ' ') /*|| (this.position.y - this.height - kollisionen.offset <= 0)*/) {
+    if ((kollisionen.collideBottom) || (kollisionen.oCharakter = ' ')) {
       this.fallingSpeed += this.gravity;
     } else this.fallingSpeed = 0;
     
@@ -69,6 +77,7 @@ class Spieler {
       if (this.position.x - this.width <= 0) {
         this.position.x = this.width + kollisionen.offset;
       }
+      this.direction = -1;
     }
 
     if (pressedKeys.d || pressedKeys.ArrowRight) { //Rechts
@@ -80,11 +89,12 @@ class Spieler {
       if (this.position.x + this.width >= sketchWidth) {
         this.position.x = sketchWidth - this.width - kollisionen.offset;
       }
+      this.direction = 1;
     }
     
     if (pressedKeys.w || pressedKeys.ArrowUp) { //Oben
       if ((kollisionen.collideTop && !this.jump) || (kollisionen.collideSlopeTop && !this.jump) || (!this.jump && this.sides.bottom == sketchHeight)){
-      this.jumpPover = 130; //130
+      this.jumpPover = 130;
       this.position.y -= this.jumpPover;
       this.jump = true;
       //Kollision mit Spielfelddecke
@@ -95,8 +105,5 @@ class Spieler {
     } else if(this.jump) {
         this.jump = false; 
       }
-
-    console.log();
   }
 }
-

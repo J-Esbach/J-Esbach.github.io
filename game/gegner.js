@@ -27,30 +27,29 @@ class Gegner {
       rectMode(RADIUS);
       rect(this.position.x, this.position.y, this.width, this.height);
     } else {
-    
-    if (this.speed != 1) {
-      imageMode(CENTER);
-      image(enemyImg, this.position.x, this.position.y, 40 * 0.8, 42 * 0.8);
-    } else {
-      push();
-      scale(-1, 1);
-      imageMode(CENTER);
-      image(enemyImg, this.position.x * -1, this.position.y, 40 * 0.8, 42 * 0.8);
-      pop();  
+      if (this.speed != 1) {
+        imageMode(CENTER);
+        image(enemyImg, this.position.x, this.position.y, 40*0.8, 42*0.8);
+      } else {
+        push();
+        scale(-1,1);
+        imageMode(CENTER);
+        image(enemyImg, this.position.x*-1, this.position.y, 40*0.8, 42*0.8);
+        pop();  
+      }
     }
-    }
     
-    if((this.position.x - this.width <= spieler.position.x + spieler.width && //test links
+    if((this.position.x - this.width <= spieler.position.x + spieler.width && 
       this.position.x - this.width >= spieler.position.x - spieler.width &&
       this.position.y - this.height <= spieler.position.y + spieler.width &&
       this.position.y + this.height >= spieler.position.y - spieler.width) ||
-      (this.position.x + this.width >= spieler.position.x - spieler.width && //test rechts
+      (this.position.x + this.width >= spieler.position.x - spieler.width &&
       this.position.x + this.width <= spieler.position.x + spieler.width &&
       this.position.y - this.height <= spieler.position.y + spieler.width &&
       this.position.y + this.height >= spieler.position.y - spieler.width)) {
       this.enemyLook = '#f54e75';  
-        } else 
-        this.enemyLook = '#f5f5f5'; 
+    } else 
+      this.enemyLook = '#f5f5f5'; 
   }
 
   falling() {

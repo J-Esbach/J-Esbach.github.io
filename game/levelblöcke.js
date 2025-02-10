@@ -48,42 +48,40 @@ const blockTyp = {
     "_": {
         points: blockForm.halbUnten,
         look: '#565cb0',
-        tX: 2 * tileBlock,
+        tX: 2*tileBlock,
         tY: 0,
     }
 }
 
-
-function levelDraw() {
-    
-    for (let by = 0; by < definitionLevel1.length; by += 1) {
-        for (let bx = 0; bx < definitionLevel1[by].length; bx += 1) {
+function levelDraw() { 
+  for (let by = 0; by < definitionLevel.length; by += 1) {
+      for (let bx = 0; bx < definitionLevel[by].length; bx += 1) {
         push()
         if (!tileSheet) {
-            translate(bx * blockSize, by * blockSize);
+          translate(bx * blockSize, by * blockSize);
         } else {
-            translate(bx * (blockSize - 1), by * (blockSize - 1));
+          translate(bx * (blockSize-1), by * (blockSize-1));
         }
-        const character = definitionLevel1[by][bx];
+        const character = definitionLevel[by][bx];
         if (character != ' ') {
-            const charType = blockTyp[character];
-            if(!tileSheet) {
-                fill(charType.look);
-                beginShape();
-                for (let i = 0; i < charType.points.length; i += 1) {
-                    vertex(charType.points[i].x, charType.points[i].y);
-                }
-                endShape(CLOSE);
-            } else {
-                imageMode(CENTER);
-                image(tileSheet, blockSize/2 + bx, blockSize/2 + by, blockSize, blockSize, charType.tX, charType.tY, tileBlock, tileBlock);
+          const charType = blockTyp[character];
+          if(!tileSheet) {
+            fill(charType.look);
+            beginShape();
+            for (let i = 0; i < charType.points.length; i += 1) {
+                vertex(charType.points[i].x, charType.points[i].y);
             }
-        } 
-        if (tileSheet && character == ' ') {
+            endShape(CLOSE);
+          } else {
             imageMode(CENTER);
-            image(tileSheet, blockSize/2 + bx, blockSize/2 + by, blockSize, blockSize, 0, 0, tileBlock, tileBlock);
-        }
-        pop();
-        }
-    }
+            image(tileSheet, blockSize/2+bx, blockSize/2+by, blockSize, blockSize, charType.tX, charType.tY, tileBlock, tileBlock);
+          }
+      } 
+      if (tileSheet && character == ' ') {
+        imageMode(CENTER);
+        image(tileSheet, blockSize/2+bx, blockSize/2+by, blockSize, blockSize, 0, 0, tileBlock, tileBlock);
+      }
+      pop();
+      }
+  }
 }

@@ -2,8 +2,8 @@ class MünzenItem {
   constructor({x, y}) {
     this.radius = 10;
     this.radius2 = this.radius/1.5;
-    this.rounded = 5; //für abgerundete Ecken
-    this.pointR = Math.sqrt( (-10 * -10) + (-10 * -10) );
+    this.rounded = 5;
+    this.pointR = Math.sqrt( (-10 * -10) + (-10 * -10) ); 
     this.position = {
       x: x,
       y: y,
@@ -14,23 +14,22 @@ class MünzenItem {
       left: this.position.x - this.pointR,
       right: this.position.x + this.pointR,
     };
-    this.itemLook = '#F2A6A6';
+    this.itemLook = '#F2A6A6'; 
     this.strokeLook = '#F18791';
     this.collected = false; 
   }
-  
   
   show() {
     push();
     fill(this.itemLook);
     noStroke();
-    translate(this.position.x, this.position.y+5); //damit das Item an der gewunschten stelle ist
+    translate(this.position.x, this.position.y+5);
     angleMode(DEGREES);
-    rotate(45); //denn durch die Rotation wird das ganze Koordinatensystem gedreht
+    rotate(45);
     rectMode(RADIUS);
     rect(0, 0, this.radius, this.radius, this.rounded);
     stroke(this.strokeLook);
-    strokeWeight(2.5);
+    strokeWeight(2.5); 
     noFill();
     rect(0, 0, this.radius2, this.radius2, this.rounded -2);
     strokeWeight(5);
@@ -47,7 +46,7 @@ class SchlüsselItem {
     this.position = {
       x: x,
       y: y,
-    }
+    };
     this.sides = {
       top: this.position.y - this.radius,
       bottom: this.position.y + this.radius,
@@ -89,16 +88,20 @@ class Portal {
       x: x,
       y: y,
     }
-    //Farben
-    this.rimLook = '#565cb0';
+    this.sides = {
+      top: this.position.y - this.rMax,
+      bottom: this.position.y + this.rMax,
+      left: this.position.x - this.rMax,
+      right: this.position.x + this.rMax,
+    };
+    this.rimLook = '#565cb0'; 
     this.rimBlock = '#373B73';
-    this.locked = '#f54e75';
-    this.inaktive = '#9497c7';
+    this.locked = '#f54e75'; 
+    this.inaktive = '#9497c7'; 
     this.aktive = '#caff70';
-    this.portalLook = '#9497c7'; 
+    this.portalLook = '#9497c7';
   }
-
-  //Inaktives Portal
+  
   inaktiv() {
     push();
     translate(this.position.x, this.position.y);
@@ -106,22 +109,19 @@ class Portal {
     stroke(this.rimLook);
     fill(this.inaktive);
     circle(0, 0, this.rMax);
-    //rote Kreislinie
     noFill();
     stroke(this.locked);
     strokeWeight(1);
     circle(0, 0, this.rMax - 5);  
-    //Portalrand
     noStroke();
     for(let r = 7; r >= 0; r -= 1) {
-    angleMode(DEGREES);
-    rotate(45);
-    fill(this.rimLook);
-    quad(-5, -this.rMax/2 + 6, -7, -this.rMax/2 - 6, 7, -this.rMax/2 - 6, 5, -this.rMax/2 + 6);
-    fill(this.locked);
-    circle(0, -this.rMax/2, 5);
+      angleMode(DEGREES);
+      rotate(45);
+      fill(this.rimLook);
+      quad(-5, -this.rMax/2 + 6, -7, -this.rMax/2 - 6, 7, -this.rMax/2 - 6, 5, -this.rMax/2 + 6);
+      fill(this.locked);
+      circle(0, -this.rMax/2, 5);
     }
-    //Schlüsselloch
     push();
     scale(0.8,0.8);
     fill(this.rimBlock);
@@ -131,7 +131,6 @@ class Portal {
     pop();
   }
 
-  //Aktives Portal
   aktiv() {
     push();
     translate(this.position.x, this.position.y);
@@ -139,28 +138,26 @@ class Portal {
     stroke(this.rimLook);
     fill(this.portalLook);
     circle(0, 0, this.rMax);
-    //Energiestreifen
     noFill();
     strokeWeight(2);
     stroke(this.aktive);
     for(let a = this.rMax - 10; a >= 0; a -= 10) {
-    arc(
-      0, 0,
-      a, a,
-      50 * random(0, 360),
-      50 * random(0, 360),
-      OPEN
-    );
+      arc(
+        0, 0,
+        a, a,
+        50 * random(0, 360),
+        50 * random(0, 360),
+        OPEN
+      );
     }
-    //Portalrand
     noStroke();
     for(let r = 7; r >= 0; r -= 1) {
-    angleMode(DEGREES);
-    rotate(45);
-    fill(this.rimLook);
-    quad(-5, -this.rMax/2 + 6, -7, -this.rMax/2 - 6, 7, -this.rMax/2 - 6, 5, -this.rMax/2 + 6);
-    fill(this.aktive);
-    circle(0, -this.rMax/2, 5);
+      angleMode(DEGREES);
+      rotate(45);
+      fill(this.rimLook);
+      quad(-5, -this.rMax/2 + 6, -7, -this.rMax/2 - 6, 7, -this.rMax/2 - 6, 5, -this.rMax/2 + 6);
+      fill(this.aktive);
+      circle(0, -this.rMax/2, 5);
     }
     pop();
   }
